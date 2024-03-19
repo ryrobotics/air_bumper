@@ -1,0 +1,6 @@
+<launch>
+
+	<node pkg="air_bumper" type="imu_detection" name="imu_detection" output="screen">
+	</node>
+  
+</launch>

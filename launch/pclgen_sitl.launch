@@ -1,0 +1,11 @@
+<launch>
+
+<arg name="vehicle" default="iris_0"/>
+<group ns="$(arg vehicle)">
+	<node pkg="air_bumper" type="add_point_cloud" name="add_point_cloud_node" output="screen">
+    <!-- load blacklist, config -->
+    <rosparam command="load" file="$(find air_bumper)/config/pclgen.yaml" />
+	</node>
+</group>
+  
+</launch>

@@ -1,0 +1,9 @@
+<launch>
+<arg name="vehicle" default="iris_0"/>
+<group ns="$(arg vehicle)">
+	<node pkg="air_bumper" type="imu_detection" name="imu_detection" output="screen">
+    <!-- load blacklist, config -->
+	</node>
+</group>
+
+</launch>

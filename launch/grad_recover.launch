@@ -1,0 +1,6 @@
+<launch>
+
+	<node pkg="air_bumper" type="grad_recover_node" name="grad_recover_node" output="screen">
+	</node>
+  
+</launch>

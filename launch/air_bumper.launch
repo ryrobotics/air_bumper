@@ -1,0 +1,37 @@
+<launch>
+    <arg name="sim_flag" value="false"/>
+    <arg name="grad_flag"  value="true"/>
+
+    <arg name="flight_altitude"  value="1.5"/>
+    <arg name="react_distance"  value="0.46"/>
+
+    <arg name="point_num" default="2"/>
+
+    <arg name="point0_x" default="0.0"/>
+    <arg name="point0_y" default="0.0"/>
+    <arg name="point0_z" default="1.5"/>
+
+    <arg name="point1_x" default="0.0"/>
+    <arg name="point1_y" default="3.5"/>
+    <arg name="point1_z" default="1.5"/>
+    
+    <node pkg="air_bumper" name="air_bumper_node" type="air_bumper_node" output="screen">
+        <!-- is simulation / grad-based reaction -->
+        <param name="sim_flg" value="$(arg sim_flag)" type="bool"/>
+        <param name="grad_flg" value="$(arg grad_flag)" type="bool"/>
+
+        <param name="flight_alt" value="$(arg flight_altitude)" type="double"/>
+        <param name="react_d" value="$(arg react_distance)" type="double"/>
+
+        <!-- Waypoints -->
+        <param name="waypoint_num" value="$(arg point_num)" type="int"/>
+
+        <param name="waypoint0_x" value="$(arg point0_x)" type="double"/>
+        <param name="waypoint0_y" value="$(arg point0_y)" type="double"/>
+        <param name="waypoint0_z" value="$(arg point0_z)" type="double"/>
+
+        <param name="waypoint1_x" value="$(arg point1_x)" type="double"/>
+        <param name="waypoint1_y" value="$(arg point1_y)" type="double"/>
+        <param name="waypoint1_z" value="$(arg point1_z)" type="double"/>
+    </node>
+</launch>

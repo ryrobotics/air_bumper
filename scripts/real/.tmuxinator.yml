@@ -1,0 +1,47 @@
+# ~/.tmuxinator/real.yml
+
+name: real
+root: ~/
+
+pre_window: source ~/catkin_ws/devel/setup.bash
+
+windows:
+  - monitor:
+        layout: tiled
+        panes:
+          # air_bumper
+          - sleep 5; roslaunch air_bumper air_bumper.launch
+          - sleep 5; roslaunch air_bumper imu_detection.launch
+          - sleep 5; roslaunch air_bumper pclgen.launch
+
+          - sleep 5; source ~/livox_ws/devel/setup.bash; roslaunch livox_ros_driver2 msg_MID360.launch
+
+
+  - driver:
+        layout: tiled
+        panes:
+          # 0->vicon, 1->t265, 2->lidar, 3->imu_ekf
+          # ref: https://github.com/ryrobotics/px4_posest
+          - roslaunch px4_posest monitor.launch type:=3
+
+          # Mapping + Planning
+          - sleep 5; roslaunch GIE gie_airbumper.launch
+          - sleep 5; roslaunch # your_own_motion_planning_algorithm
+          - sleep 5; roslaunch # your_own_px4_control_module
+
+          # MAVROS
+          - sleep 5; roslaunch mavros px4.launch fcu_url:=/dev/ttyTHS1:921600 # gcs_url:=udp://@192.168.50.199
+
+          # MID360
+          - sleep 5; source /src/fast_ws/devel/setup.bash; roslaunch fast_lio mapping_mid360.launch rviz:=false
+          # - cd /src/cdc; rosbag record -a -x '((/livox/lidar)|(/Laser_map)|(/cloud.*))'\
+
+          # Ouster OS0
+          # - sleep 5; source /src/ouster_ws/devel/setup.bash; roslaunch ouster_ros sensor.launch viz:=false
+          # - sleep 5; source /src/fast_ws/devel/setup.bash; roslaunch fast_lio mapping_os0.launch rviz:=false
+          # - sleep 5; roslaunch imu_ekf imu_ekf_driver.launch
+          # - cd /src/cdc; rosbag record -a -x '((?!.*drop|.*throttled).*camera/.*)|(.*ouster.*image)' \
+
+          # T265
+          # - sleep 5; roslaunch realsense2_camera rs_camera.launch
+          # - cd ~/catkin_ws/rosbag; rosbag record -a \

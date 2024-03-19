@@ -1,0 +1,31 @@
+# ~/.tmuxinator/sitl.yml
+
+name: sitl
+root: ~/
+
+# pre_window: source ~/catkin_ws/devel/setup.bash
+
+# HINT:
+# param set COM_RCL_EXCEPT 4
+# param set NAV_RCL_ACT 0
+
+windows:
+  - usr_imu:
+        layout: tiled
+        panes:
+          - sleep 5; source ~/catkin_ws/devel/setup.bash; roslaunch air_bumper air_bumper_sitl.launch
+          - sleep 5; source ~/catkin_ws/devel/setup.bash; roslaunch air_bumper imu_detection_sitl.launch
+          - sleep 5; source ~/catkin_ws/devel/setup.bash; roslaunch air_bumper pclgen_sitl.launch
+
+  - simulation:
+        layout: tiled
+        panes:
+          - killall -9 gzclient; killall -9 gzserver;
+            source ~/catkin_ws/devel/setup.bash;
+            source ~/PX4-Autopilot/Tools/setup_gazebo.bash ~/PX4-Autopilot/ ~/PX4-Autopilot/build/px4_sitl_default;
+            export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/PX4-Autopilot;
+            export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/PX4-Autopilot/Tools/sitl_gazebo;
+            roslaunch px4 px4_air_bumper.launch
+          - sleep 5; source ~/catkin_ws/devel/setup.bash; roslaunch GIE gie_airbumper_sitl.launch
+          - sleep 5; source ~/catkin_ws/devel/setup.bash; roslaunch # your_own_motion_planning_algorithm
+          - sleep 5; source ~/catkin_ws/devel/setup.bash; roslaunch # your_own_px4_control_module
