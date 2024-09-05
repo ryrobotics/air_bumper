@@ -17,13 +17,13 @@ Air Bumper is a collision detection, estimation and reaction framework, which en
 If this project aids your research, please consider citing our paper:
 
 ```
-@misc{wang2023air,
-    title={Air Bumper: A Collision Detection and Reaction Framework for Autonomous MAV Navigation}, 
-    author={Ruoyu Wang and Zixuan Guo and Yizhou Chen and Xinyi Wang and Ben M. Chen},
-    year={2023},
-    eprint={2307.06101},
-    archivePrefix={arXiv},
-    primaryClass={cs.RO}}
+@inproceedings{wang2024air,
+  title={Air Bumper: A Collision Detection and Reaction Framework for Autonomous MAV Navigation},
+  author={Wang, Ruoyu and Guo, Zixuan and Chen, Yizhou and Wang, Xinyi and Chen, Ben M},
+  booktitle={2024 IEEE International Conference on Robotics and Automation (ICRA)},
+  pages={15735--15741},
+  year={2024},
+  organization={IEEE}}
 ```
 Don't forget to star :star: this repository if it's helpful to your projects!
 
